@@ -12,7 +12,7 @@ exports.emailRegex = new RegExp("^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|
 // Photo type
 exports.piVedioPath = "/dev/video0";
 exports.pictureXY = "320*240";
-exports.picturePath = "/home/pi/tmp/";
+exports.picturePath = "/root/project/Remote-Camera/publish/photo/";
 
 // Email server
 exports.email = "test@123.com";
@@ -21,7 +21,7 @@ exports.password = "111111";
 exports.sentToMail = "youremail";
 
 // User config
-exports.username = "admin@rc.com";
+exports.username = "peter@pi.com";
 exports.userpwd = "123456";
 
 // Version
