@@ -34,7 +34,7 @@
                 }
             };
     }
-    setInterval(function(){ajax("api/distance",(distance)=>document.getElementsByClassName('foot')[0].innerHTML="distance:"+distance.distance)}, 100);
+    setInterval(function(){ajax("api/distance",(distance)=>document.getElementsByClassName('foot')[0].innerHTML="distance:"+distance["distance"])}, 100);
 </script>
 {% endblock %}
 
