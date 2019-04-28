@@ -18,6 +18,9 @@ app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 
 // Controllers
+var distance = require(__dirname + '/controllers/distance.js');
+distance.doDistanceCtrl(app);
+
 var user = require(__dirname + '/controllers/login.js');
 user.doLoginCtrl(app);
 
