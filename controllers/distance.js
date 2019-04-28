@@ -19,7 +19,7 @@ exports.doDistanceCtrl = function(app) {
         }
         res.send(200,message);
     });
-    app.get("/api/distance", function(req, res) 
+    app.get("/api/setDistance", function(req, res) 
     {
         distance = req.query.distance;
     });
