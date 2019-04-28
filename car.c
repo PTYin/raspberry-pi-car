@@ -502,10 +502,10 @@ int main()
 				stop();
 			}
 		}
-		if (digitalRead(VOICE) == LOW && !started)
+		if (digitalRead(VOICE) == LOW)
 		{
 			printf("sound!\n");
-			started=1;
+			started^=1;
 			digitalWrite(LED1, HIGH);
 			digitalWrite(LED2, HIGH);
 			Calibration(2);
