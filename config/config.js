@@ -10,6 +10,7 @@ exports.cookieSecret = "34a39cb01f43cb9463d656a3e2ec8b54";
 exports.emailRegex = new RegExp("^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*[\.]{1}[a-z]{2,6}$");
 
 // Photo type
+exports.photoFramesToSkip = 10;
 exports.piVedioPath = "/dev/video0";
 exports.pictureXY = "320*240";
 exports.picturePath = "/root/project/raspberry-pi-car/publish/photo/";

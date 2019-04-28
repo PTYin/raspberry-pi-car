@@ -19,6 +19,8 @@ exports.cameraCtrl = function(app) {
         var title = moment().format('MMDDhhmmss-a');
         //set picture
         var param = [];
+        param.push("-S");
+        param.push(config.photoFramesToSkip);
         param.push("-d");
         param.push(config.piVedioPath);
         param.push("-r");
