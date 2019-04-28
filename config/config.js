@@ -12,7 +12,7 @@ exports.emailRegex = new RegExp("^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|
 // Photo type
 exports.piVedioPath = "/dev/video0";
 exports.pictureXY = "320*240";
-exports.picturePath = "publish/photo/";
+exports.picturePath = "/root/project/raspberry-pi-car/publish/photo/";
 
 // Email server
 exports.email = "test@123.com";
