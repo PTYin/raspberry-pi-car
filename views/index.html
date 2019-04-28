@@ -39,7 +39,7 @@
         ajax("api/distance",(distance)=>
         {
             distance = JSON.parse(distance);
-            if(distance!=undefined)
+            if(distance.distance!=undefined)
                 document.getElementsByClassName('foot')[0].innerHTML="distance:"+distance.distance;
         });
     }, 100);
