@@ -38,8 +38,9 @@
     {
         ajax("api/distance",(distance)=>
         {
-            // document.getElementsByClassName('foot')[0].innerHTML="distance:"+eval(distance).distance;
-            console.log(distance);
+            distance = JSON.parse(distance);
+            if(distance!=undefined)
+                document.getElementsByClassName('foot')[0].innerHTML="distance:"+distance.distance;
         });
     }, 100);
 </script>
@@ -67,7 +68,7 @@
                 <input type="submit" value="Login" class="login-button" ng-disabled="loginForm.$invalid"/>
             </div>
         </form>
-        <div class="foot">
+        <div class="foot" style="text-align:center">
             
         </div>
     </div>
@@ -93,7 +94,7 @@
         <div class="camera-info">
             <p>Take a Photo Anywhere! -- Remote Camera</p>
         </div>
-        <div class="foot">
+        <div class="foot" style="text-align:center">
             
         </div>
     </div>
@@ -142,7 +143,7 @@
                 </a>
             </li>
         </ul>
-        <div class="foot">
+        <div class="foot" style="text-align:center">
             
         </div>
     </div>
@@ -177,7 +178,7 @@
                 </li>
             </ul>
         </div>
-        <div class="foot">
+        <div class="foot" style="text-align:center">
             
         </div>
     </div>
@@ -210,7 +211,7 @@
         <div class="camera-info">
             <p>Help to your server IP -- Remote Camera</p>
         </div>
-        <div class="foot">
+        <div class="foot" style="text-align:center">
             
         </div>
     </div>
@@ -236,7 +237,7 @@
                 </div>
             </div>
         </div>
-        <div class="foot">
+        <div class="foot" style="text-align:center">
             
         </div>
     </div>
@@ -289,7 +290,7 @@
                 </li>
             </ul>
         </div>
-        <div class="foot">
+        <div class="foot" style="text-align:center">
             
         </div>
     </div>
