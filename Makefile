@@ -12,3 +12,5 @@ test:
 
 server:
 	@node app.js
+compile:
+	gcc car.c -o car -lwiringPi -lm
