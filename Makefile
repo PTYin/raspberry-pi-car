@@ -1,6 +1,7 @@
 install:
 	@sudo apt-get install fswebcam
 	@npm install .
+	gcc car.c -o car -lwiringPi -lm
 
 specs := $(shell find ./tests -name '*.test.js' ! -path "*node_modules/*")
 reporter = spec
