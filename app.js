@@ -48,7 +48,7 @@ exports.server = function() {
 }
 
 app.listen(config.port);
-process.exec('/root/project/raspberry-pi-car/car &',function (error, stdout, stderr) 
+process.exec('/root/project/raspberry-pi-car/car',function (error, stdout, stderr) 
 {
     if (error !== null) {
       console.log('exec error: ' + error);
