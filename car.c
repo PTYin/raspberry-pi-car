@@ -334,7 +334,7 @@ double GetRoll(double *pRealVals, double fNorm)
 {
 	double fz = fabs(pRealVals[2]), fy = fabs(pRealVals[1]);
 	double ftan = fy / fz;
-	printf("**********roll:%lf***********\n", atan(ftan) * fRad2Deg);
+	// // printf("**********roll:%lf***********\n", atan(ftan) * fRad2Deg);
 	return atan(ftan) * fRad2Deg;
 }
 
@@ -342,16 +342,16 @@ double GetRoll(double *pRealVals, double fNorm)
 double GetPitch(double *pRealVals, double fNorm)
 {
 	double fz = fabs(pRealVals[2]), fx = fabs(pRealVals[0]);
-//   printf("**********%lf***********\n", pRealVals[2]);
+//   // printf("**********%lf***********\n", pRealVals[2]);
 	double ftan = fx / fz;
-	printf("**********pitch:%lf***********\n", atan(ftan) * fRad2Deg);
+	// printf("**********pitch:%lf***********\n", atan(ftan) * fRad2Deg);
 	return atan(ftan) * fRad2Deg;
 }
 
 //利用陀螺仪积分
 double GetYaw(double yaw, double rotateSpeed, double dt) 
 {
-	printf("**********yaw:%lf***********\n", yaw+rotateSpeed*dt);
+	// printf("**********yaw:%lf***********\n", yaw+rotateSpeed*dt);
 	return yaw+rotateSpeed*dt;
 }
 
@@ -366,7 +366,7 @@ void Rectify(int identifier, short *pReadout, double *pRealVals)
 	for (int i = 4; i < 7; ++i)
 	{
 		pRealVals[i] = (double)(pReadout[i] - calibData[(identifier-1)*7+i]) / 131.0;
-		printf("----------%lf------------\n", pRealVals[i]);
+		// printf("----------%lf------------\n", pRealVals[i]);
 	}
 }
 
@@ -402,8 +402,8 @@ void setup()
 	//WriteMPUReg(0x6B, 0);
 	if (fd1 >= 0 && fd2 >= 0) 
 	{ // fd 为负数，说明IIC连接失败
-		printf("fd1 = %d\n",fd1);
-		printf("fd2 = %d\n",fd2);
+		// printf("fd1 = %d\n",fd1);
+		// printf("fd2 = %d\n",fd2);
 		wiringPiI2CWriteReg8(fd1,PWR_MGMT_1,0x00); // 开启温度检测 关闭休眠
 		wiringPiI2CWriteReg8(fd1,SMPLRT_DIV, 0x07);
 		wiringPiI2CWriteReg8(fd1,CONFIG, 0x06);
@@ -417,7 +417,7 @@ void setup()
 	}
 	else 
 	{
-		printf("IIC初始化失败");
+		// printf("IIC初始化失败");
 	}
 
 	softPwmCreate(BOTTOMPIN, 15, BOTTOMRANGE);//initialize
@@ -467,7 +467,7 @@ void setup()
 		sleep(2);
 		if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0 ) 
 		{
-			printf("创建网络连接失败,尝试重连---socket error!\n");
+			// printf("创建网络连接失败,尝试重连---socket error!\n");
 			sleep(1);
 			continue;
 		};
@@ -477,18 +477,18 @@ void setup()
 		servaddr.sin_port = htons(PORT);
 		if (inet_pton(AF_INET, IPSTR, &servaddr.sin_addr) <= 0 )
 		{
-			printf("创建网络连接失败,尝试重连--inet_pton error!\n");
+			// printf("创建网络连接失败,尝试重连--inet_pton error!\n");
 			sleep(1);
 			continue;
 		};
 
 		if (connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) < 0)
 		{
-			printf("连接到服务器失败,connect error!\n");
+			// printf("连接到服务器失败,connect error!\n");
 			sleep(1);
 			continue;
 		}
-		printf("与远端建立了连接\n");
+		// printf("与远端建立了连接\n");
 		break;
 	}while(1);
 	nLastTime = micros(); //记录当前时间
@@ -513,7 +513,7 @@ int main()
 		double fNorm1 = sqrt(realVals1[0] * realVals1[0] + realVals1[1] * realVals1[1] + realVals1[2] * realVals1[2]);
 		double fNorm2 = sqrt(realVals2[0] * realVals2[0] + realVals2[1] * realVals2[1] + realVals2[2] * realVals2[2]);
 
-		printf("NORMAL:%lf  %lf\n",fNorm1, fNorm2);
+		// printf("NORMAL:%lf  %lf\n",fNorm1, fNorm2);
 		double fRoll1 = GetRoll(realVals1, fNorm1); //计算Roll角
 		if (realVals1[1] < 0)
 			fRoll1 = 0;
@@ -553,34 +553,34 @@ int main()
 		//更新本次测的时间
 		nLastTime = nCurTime;
 
-		printf("Roll:");
-		printf("%lf %lf\tPitch: %lf\tYaw:%lf", fNewRoll1, fNewRoll2, fNewPitch2, fYaw1);
+		// printf("Roll:");
+		// printf("%lf %lf\tPitch: %lf\tYaw:%lf", fNewRoll1, fNewRoll2, fNewPitch2, fYaw1);
 		
 		if(started)
 		{
 			if(fNewPitch2<-30)
 			{
 				go(LEFT);
-				printf("\n***left to go***\n\n");
+				// printf("\n***left to go***\n\n");
 			}
 			else if(fNewPitch2>30)
 			{
 				go(RIGHT);
-				printf("\n***right to go***\n\n");
+				// printf("\n***right to go***\n\n");
 			}
 			else if(fNewRoll2>30)
 			{
 				go(UP);
-				printf("\n***up to go***\n\n");
+				// printf("\n***up to go***\n\n");
 			}
 			else if(fNewRoll2<-30)
 			{
 				go(DOWN);
-				printf("\n***down to go***\n\n");
+				// printf("\n***down to go***\n\n");
 			}
 			else
 			{
-				printf("\n***stand by***\n\n");
+				// printf("\n***stand by***\n\n");
 				stop();
 			}
 			if(realVals2[2]>2&&started)
@@ -613,7 +613,7 @@ int main()
 			{
 				softPwmWrite(BOTTOMPIN, fYaw1/(1800/BOTTOMRANGE)+15.0);
 				softPwmWrite(TOPPIN, fNewRoll1/(1800/TOPRANGE)+5.0);
-				printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
+				// printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
 			}
 			getDis();
 			char str1[4096], para[16];
@@ -623,21 +623,21 @@ int main()
 			strcat(str1, para);
 			strcat(str1," HTTP/1.1\n");
 			strcat(str1, "\r\n\r\n");
-			printf("%s\n",str1);
+			// printf("%s\n",str1);
 
 			ret = write(sockfd,str1,strlen(str1));
 			if (ret < 0) 
 			{
-				printf("发送失败！错误代码是%d，错误信息是'%s'\n",errno, strerror(errno));
+				// printf("发送失败！错误代码是%d，错误信息是'%s'\n",errno, strerror(errno));
 				continue;
 			}else
 			{
-				printf("消息发送成功，共发送了%d个字节！\n\n", ret);
+				// printf("消息发送成功，共发送了%d个字节！\n\n", ret);
 			}
 		}
 		if (digitalRead(VOICE) == LOW)
 		{
-			printf("sound!\n");
+			// printf("sound!\n");
 			started^=1;
 			stop();
 			digitalWrite(LED1, HIGH);
