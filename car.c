@@ -558,31 +558,35 @@ int main()
 		
 		if(started)
 		{
-			if(fNewPitch2<-30)
+			if(!detectStarted)
 			{
-				go(LEFT);
-				// printf("\n***left to go***\n\n");
+				if(fNewPitch2<-30)
+				{
+					go(LEFT);
+					// printf("\n***left to go***\n\n");
+				}
+				else if(fNewPitch2>30)
+				{
+					go(RIGHT);
+					// printf("\n***right to go***\n\n");
+				}
+				else if(fNewRoll2>30)
+				{
+					go(UP);
+					// printf("\n***up to go***\n\n");
+				}
+				else if(fNewRoll2<-30)
+				{
+					go(DOWN);
+					// printf("\n***down to go***\n\n");
+				}
+				else
+				{
+					// printf("\n***stand by***\n\n");
+					stop();
+				}
 			}
-			else if(fNewPitch2>30)
-			{
-				go(RIGHT);
-				// printf("\n***right to go***\n\n");
-			}
-			else if(fNewRoll2>30)
-			{
-				go(UP);
-				// printf("\n***up to go***\n\n");
-			}
-			else if(fNewRoll2<-30)
-			{
-				go(DOWN);
-				// printf("\n***down to go***\n\n");
-			}
-			else
-			{
-				// printf("\n***stand by***\n\n");
-				stop();
-			}
+			
 			if(realVals2[2]>2&&started)
 			{
 				// if(!started)
@@ -611,6 +615,7 @@ int main()
 			}
 			if(detectStarted)
 			{
+				stop();
 				softPwmWrite(BOTTOMPIN, fYaw1/(1800/BOTTOMRANGE)+15.0);
 				softPwmWrite(TOPPIN, fNewRoll1/(1800/TOPRANGE)+5.0);
 				// printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
@@ -646,7 +651,7 @@ int main()
 			digitalWrite(LED1, LOW);
 			digitalWrite(LED2, LOW);
 		}
-		delay(30);
+		delay(10);
 	}
 	return 0;
 }
