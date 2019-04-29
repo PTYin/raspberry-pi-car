@@ -458,10 +458,10 @@ void setup()
 	init(kalmanRoll1);
 	kalmanPitch1 = (struct Kalman *)malloc(sizeof(struct Kalman));
 	init(kalmanPitch1);
-	kalmanRoll2 = (struct Kalman *)malloc(sizeof(struct Kalman));
-	init(kalmanRoll2);
-	kalmanPitch2 = (struct Kalman *)malloc(sizeof(struct Kalman));
-	init(kalmanPitch2);
+	// kalmanRoll2 = (struct Kalman *)malloc(sizeof(struct Kalman));
+	// init(kalmanRoll2);
+	// kalmanPitch2 = (struct Kalman *)malloc(sizeof(struct Kalman));
+	// init(kalmanPitch2);
 	do
 	{
 		sleep(2);
@@ -540,8 +540,8 @@ int main()
 		if(fNewRoll1<0)fNewRoll1=0;
 		//   double fNewPitch1 = getAngle(kalmanPitch1, fPitch1, realVals1[5], dt);
 
-		double fNewRoll2 = getAngle(kalmanRoll2, fRoll2, realVals2[4], dt);
-		double fNewPitch2 = getAngle(kalmanPitch2, fPitch2, realVals2[5], dt);
+		double fNewRoll2 = fRoll2;//getAngle(kalmanRoll2, fRoll2, realVals2[4], dt);
+		double fNewPitch2 = fPitch2;//getAngle(kalmanPitch2, fPitch2, realVals2[5], dt);
 
 		//更新Roll角和Pitch角
 		fLastRoll1 = fNewRoll1;
