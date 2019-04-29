@@ -624,7 +624,6 @@ int main()
 		{
 			softPwmWrite(BOTTOMPIN, fYaw1/(1800/BOTTOMRANGE)+15.0);
 			softPwmWrite(TOPPIN, fNewRoll1/(1800/TOPRANGE)+5.0);
-			printf("distance: %.2lf\n", getDis());
 			printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
 			char str1[4096], para[16];
 			sprintf(para, "%.2lf",distance);
