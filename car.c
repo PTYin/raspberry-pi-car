@@ -1,10 +1,18 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include <time.h>
+#include <string.h>
 #include <wiringPi.h>
 #include <wiringPiI2C.h>
 #include<softPwm.h>
 #include<math.h>
 #include<sys/time.h>
+#include <sys/socket.h>
+#include <sys/wait.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <errno.h>
+#include <unistd.h>
 
 #define A_ENABLE_1 26
 #define A_ENABLE_2 27
@@ -89,9 +97,24 @@ const int TOPPIN = 0;
 #define Trig_pin 4
 #define Echo_pin 5
 
+double distance = 0;
+
 /***************************/
 
 #define VOICE 2
+
+/***************************/
+
+#define IPSTR "127.0.0.1"
+#define PORT 80
+#define BUFSIZE 1024
+
+int sockfd, ret, i, h;
+struct sockaddr_in servaddr;
+char buf[BUFSIZE], *str;
+socklen_t len;
+fd_set   t_set1;
+struct timeval  tv;
 
 void reset(void)
 {
@@ -250,6 +273,38 @@ void Calibration(int identifier)
 	}
 	calibData[(identifier-1)*7+2] -= 16384; //设芯片Z轴竖直向下，设定静态工作点。
 }
+
+char* itoa(int num,char* str,int radix)
+{
+	char index[]="0123456789ABCDEF";
+	unsigned unum;
+	int i=0,j,k;
+	if(radix==10&&num<0)
+	{
+		unum=(unsigned)-num;
+		str[i++]='-';
+	}
+	else unum=(unsigned)num;
+	do
+	{
+		str[i++]=index[unum%(unsigned)radix];
+		unum/=radix;
+	}while(unum);
+	str[i]='\0';
+	if(str[0]=='-')
+		k=1;
+	else
+		k=0;
+	char temp;
+	for(j=k;j<=(i-1)/2;j++)
+	{
+		temp=str[j];
+		str[j]=str[i-1+k-j];
+		str[i-1+k-j]=temp;
+	}
+	return str;
+}
+
 // void Calibration(int identifier)
 // {
 //   double valSums1[7] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -315,7 +370,7 @@ void Rectify(int identifier, short *pReadout, double *pRealVals)
 	}
 }
 
-double getDis()
+void getDis()
 {
 	struct timeval start_time;
 	struct timeval stop_time;
@@ -335,9 +390,8 @@ double getDis()
 	double start, stop;
 	start = start_time.tv_sec * 1000000 + start_time.tv_usec;   //微秒级的时间  
 	stop  = stop_time.tv_sec * 1000000 + stop_time.tv_usec;
-	double dis = (stop - start) / 1000000 * 34000 / 2;  //计算时间差求出距离
+	distance = (stop - start) / 1000000 * 34000 / 2;  //计算时间差求出距离
 	// 这里测试的 距离 实际就是上面时序图的回响时间长度乘以声速的结果。
-	return dis;
 }
 
 void setup() 
@@ -408,7 +462,35 @@ void setup()
 	//   init(kalmanRoll2);
 	//   kalmanPitch2 = (struct Kalman *)malloc(sizeof(struct Kalman));
 	//   init(kalmanPitch2);
+	do
+	{
+		sleep(2);
+		if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0 ) 
+		{
+			printf("创建网络连接失败,尝试重连---socket error!\n");
+			sleep(1);
+			continue;
+		};
 
+		bzero(&servaddr, sizeof(servaddr));
+		servaddr.sin_family = AF_INET;
+		servaddr.sin_port = htons(PORT);
+		if (inet_pton(AF_INET, IPSTR, &servaddr.sin_addr) <= 0 )
+		{
+			printf("创建网络连接失败,尝试重连--inet_pton error!\n");
+			sleep(1);
+			continue;
+		};
+
+		if (connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) < 0)
+		{
+			printf("连接到服务器失败,connect error!\n");
+			sleep(1);
+			continue;
+		}
+		printf("与远端建立了连接\n");
+		break;
+	}while(1);
 	nLastTime = micros(); //记录当前时间
 	nCurTime = micros();
 }
@@ -544,6 +626,24 @@ int main()
 			softPwmWrite(TOPPIN, fNewRoll1/(1800/TOPRANGE)+5.0);
 			printf("distance: %.2lf\n", getDis());
 			printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
+			char str1[4096], para[16];
+			sprintf(para, "%.2lf",distance);
+			memset(str1, 0, 4096);
+			strcat(str1, "GET /setData?distance=");
+			strcat(str1, para);
+			strcat(str1," HTTP/1.1\n");
+			strcat(str1, "\r\n\r\n");
+			printf("%s\n",str1);
+
+			ret = write(sockfd,str1,strlen(str1));
+			if (ret < 0) 
+			{
+				printf("发送失败！错误代码是%d，错误信息是'%s'\n",errno, strerror(errno));
+				continue;
+			}else
+			{
+				printf("消息发送成功，共发送了%d个字节！\n\n", ret);
+			}
 		}
 		delay(30);
 	}
