@@ -82,7 +82,7 @@ struct Kalman
 /***************************/
 
 #define TOPRANGE 200
-#define BOTTOMRANGE 200
+#define BOTTOMRANGE 164
 
 const int BOTTOMPIN = 1;
 const int TOPPIN = 0;
@@ -448,7 +448,7 @@ void setup()
 	digitalWrite(LED1, HIGH);
 	digitalWrite(LED2, HIGH);
 
-	// Calibration(1); //执行校准
+	Calibration(1); //执行校准
 	Calibration(2);//TODO
 
 	digitalWrite(LED1, LOW);
@@ -458,10 +458,10 @@ void setup()
 	init(kalmanRoll1);
 	kalmanPitch1 = (struct Kalman *)malloc(sizeof(struct Kalman));
 	init(kalmanPitch1);
-	//   kalmanRoll2 = (struct Kalman *)malloc(sizeof(struct Kalman));
-	//   init(kalmanRoll2);
-	//   kalmanPitch2 = (struct Kalman *)malloc(sizeof(struct Kalman));
-	//   init(kalmanPitch2);
+	kalmanRoll2 = (struct Kalman *)malloc(sizeof(struct Kalman));
+	init(kalmanRoll2);
+	kalmanPitch2 = (struct Kalman *)malloc(sizeof(struct Kalman));
+	init(kalmanPitch2);
 	do
 	{
 		sleep(2);
@@ -540,8 +540,8 @@ int main()
 		if(fNewRoll1<0)fNewRoll1=0;
 		//   double fNewPitch1 = getAngle(kalmanPitch1, fPitch1, realVals1[5], dt);
 
-		double fNewRoll2 = fRoll2;//getAngle(kalmanRoll2, fRoll2, realVals2[4], dt);
-		double fNewPitch2 = fPitch2;//getAngle(kalmanPitch2, fPitch2, realVals2[5], dt);
+		double fNewRoll2 = getAngle(kalmanRoll2, fRoll2, realVals2[4], dt);
+		double fNewPitch2 = getAngle(kalmanPitch2, fPitch2, realVals2[5], dt);
 
 		//更新Roll角和Pitch角
 		fLastRoll1 = fNewRoll1;
@@ -583,48 +583,38 @@ int main()
 				printf("\n***stand by***\n\n");
 				stop();
 			}
-		}
-		if (digitalRead(VOICE) == LOW)
-		{
-			printf("sound!\n");
-			started^=1;
-			digitalWrite(LED1, HIGH);
-			digitalWrite(LED2, HIGH);
-			Calibration(2);
-			digitalWrite(LED1, LOW);
-			digitalWrite(LED2, LOW);
-		}
-		if(realVals2[2]>2&&started)
-		{
-			// if(!started)
-			// {
-			// 	started=1;
-			// 	digitalWrite(LED1, HIGH);
-			// 	digitalWrite(LED2, HIGH);
-			// 	Calibration(2);
-			// 	digitalWrite(LED1, LOW);
-			// 	digitalWrite(LED2, LOW);
-			// }
-			// else
-			// {
-			stop();
-			detectStarted ^= 1;
-			softPwmWrite(BOTTOMPIN, 15.0);
-			softPwmWrite(TOPPIN, 5.0);
-			fLastYaw1 = 0;
-			fYaw1 = 0;
-			digitalWrite(LED1, HIGH);
-			digitalWrite(LED2, HIGH);
-			Calibration(1);
-			digitalWrite(LED1, LOW);
-			digitalWrite(LED2, LOW);
-			// }
-		}
-		if(detectStarted)
-		{
-			softPwmWrite(BOTTOMPIN, fYaw1/(1800/BOTTOMRANGE)+15.0);
-			softPwmWrite(TOPPIN, fNewRoll1/(1800/TOPRANGE)+5.0);
-			printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
+			if(realVals2[2]>2&&started)
+			{
+				// if(!started)
+				// {
+				// 	started=1;
+				// 	digitalWrite(LED1, HIGH);
+				// 	digitalWrite(LED2, HIGH);
+				// 	Calibration(2);
+				// 	digitalWrite(LED1, LOW);
+				// 	digitalWrite(LED2, LOW);
+				// }
+				// else
+				// {
+				stop();
+				detectStarted ^= 1;
+				softPwmWrite(BOTTOMPIN, 15.0);
+				softPwmWrite(TOPPIN, 5.0);
+				fLastYaw1 = 0;
+				fYaw1 = 0;
+				digitalWrite(LED1, HIGH);
+				digitalWrite(LED2, HIGH);
+				Calibration(1);
+				digitalWrite(LED1, LOW);
+				digitalWrite(LED2, LOW);
+				// }
+			}
+			if(detectStarted)
+			{
+				softPwmWrite(BOTTOMPIN, fYaw1/(1800/BOTTOMRANGE)+15.0);
+				softPwmWrite(TOPPIN, fNewRoll1/(1800/TOPRANGE)+5.0);
+				printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
+			}
 			getDis();
 			char str1[4096], para[16];
 			sprintf(para, "%.2lf",distance);
@@ -644,6 +634,17 @@ int main()
 			{
 				printf("消息发送成功，共发送了%d个字节！\n\n", ret);
 			}
+		}
+		if (digitalRead(VOICE) == LOW)
+		{
+			printf("sound!\n");
+			started^=1;
+			stop();
+			digitalWrite(LED1, HIGH);
+			digitalWrite(LED2, HIGH);
+			Calibration(2);
+			digitalWrite(LED1, LOW);
+			digitalWrite(LED2, LOW);
 		}
 		delay(30);
 	}
