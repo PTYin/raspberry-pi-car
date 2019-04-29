@@ -588,7 +588,7 @@ int main()
 				}
 			}
 			
-			if(realVals2[2]>2&&started)
+			if(realVals2[2]>1.9&&started)
 			{
 				// if(!started)
 				// {
