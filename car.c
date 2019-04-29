@@ -625,10 +625,11 @@ int main()
 			softPwmWrite(BOTTOMPIN, fYaw1/(1800/BOTTOMRANGE)+15.0);
 			softPwmWrite(TOPPIN, fNewRoll1/(1800/TOPRANGE)+5.0);
 			printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
+			getDis();
 			char str1[4096], para[16];
 			sprintf(para, "%.2lf",distance);
 			memset(str1, 0, 4096);
-			strcat(str1, "GET /setData?distance=");
+			strcat(str1, "GET /api/setDistance?distance=");
 			strcat(str1, para);
 			strcat(str1," HTTP/1.1\n");
 			strcat(str1, "\r\n\r\n");
