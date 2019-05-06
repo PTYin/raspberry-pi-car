@@ -105,17 +105,6 @@ double distance = 0;
 
 /***************************/
 
-#define IPSTR "127.0.0.1"
-#define PORT 80
-#define BUFSIZE 1024
-
-int sockfd, ret, i, h;
-struct sockaddr_in servaddr;
-char buf[BUFSIZE], *str;
-socklen_t len;
-fd_set   t_set1;
-struct timeval  tv;
-
 void reset(void)
 {
 		digitalWrite(A_ENABLE_1, HIGH);
@@ -306,30 +295,6 @@ char* itoa(int num,char* str,int radix)
 	return str;
 }
 
-// void Calibration(int identifier)
-// {
-//   double valSums1[7] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-//   double valSums2[7] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-//   //先求和
-//   for (int i = 0; i < nCalibTimes; ++i) {
-//     short mpuVals1[nValCnt];
-//     short mpuVals2[nValCnt];
-//     ReadAccGyr(fd1, mpuVals1);
-//     ReadAccGyr(fd2, mpuVals2);
-//     for (int j = 0; j < nValCnt; ++j) {
-//       valSums1[j] += mpuVals1[j];
-//       valSums2[j] += mpuVals2[j];
-//     }
-//   }
-//   //再求平均
-//   for (int i = 0; i < nValCnt; ++i) {
-//     calibData[i] = (int)(valSums1[i] / nCalibTimes);
-//     calibData[7+i] = (int)(valSums2[i] / nCalibTimes);
-//   }
-//   calibData[2] -= 16384;
-//   calibData[9] -= 16384; //设芯片Z轴竖直向下，设定静态工作点。
-// }
-
 //算得Roll角。算法见文档。
 double GetRoll(double *pRealVals, double fNorm)
 {
@@ -463,35 +428,7 @@ void setup()
 	// init(kalmanRoll2);
 	// kalmanPitch2 = (struct Kalman *)malloc(sizeof(struct Kalman));
 	// init(kalmanPitch2);
-	do
-	{
-		sleep(2);
-		if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0 ) 
-		{
-			// printf("创建网络连接失败,尝试重连---socket error!\n");
-			sleep(1);
-			continue;
-		};
-
-		bzero(&servaddr, sizeof(servaddr));
-		servaddr.sin_family = AF_INET;
-		servaddr.sin_port = htons(PORT);
-		if (inet_pton(AF_INET, IPSTR, &servaddr.sin_addr) <= 0 )
-		{
-			// printf("创建网络连接失败,尝试重连--inet_pton error!\n");
-			sleep(1);
-			continue;
-		};
-
-		if (connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) < 0)
-		{
-			// printf("连接到服务器失败,connect error!\n");
-			sleep(1);
-			continue;
-		}
-		// printf("与远端建立了连接\n");
-		break;
-	}while(1);
+	
 	nLastTime = micros(); //记录当前时间
 	nCurTime = micros();
 }
@@ -622,24 +559,6 @@ int main()
 				// printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
 			}
 			getDis();
-			char str1[4096], para[16];
-			sprintf(para, "%.2lf",distance);
-			memset(str1, 0, 4096);
-			strcat(str1, "GET /api/setDistance?distance=");
-			strcat(str1, para);
-			strcat(str1," HTTP/1.1\n");
-			strcat(str1, "\r\n\r\n");
-			// printf("%s\n",str1);
-
-			ret = write(sockfd,str1,strlen(str1));
-			if (ret < 0) 
-			{
-				// printf("发送失败！错误代码是%d，错误信息是'%s'\n",errno, strerror(errno));
-				continue;
-			}else
-			{
-				// printf("消息发送成功，共发送了%d个字节！\n\n", ret);
-			}
 		}
 		if (digitalRead(VOICE) == LOW)
 		{

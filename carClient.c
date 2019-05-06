@@ -82,7 +82,7 @@ struct Kalman
 /***************************/
 
 #define TOPRANGE 200
-#define BOTTOMRANGE 200
+#define BOTTOMRANGE 164
 
 const int BOTTOMPIN = 1;
 const int TOPPIN = 0;
@@ -335,7 +335,7 @@ double GetRoll(double *pRealVals, double fNorm)
 {
 	double fz = fabs(pRealVals[2]), fy = fabs(pRealVals[1]);
 	double ftan = fy / fz;
-	// // printf("**********roll:%lf***********\n", atan(ftan) * fRad2Deg);
+	// printf("**********roll:%lf***********\n", atan(ftan) * fRad2Deg);
 	return atan(ftan) * fRad2Deg;
 }
 
@@ -420,6 +420,9 @@ void setup()
 	{
 		// printf("IIC初始化失败");
 	}
+
+	softPwmCreate(BOTTOMPIN, 15, BOTTOMRANGE);//initialize
+	softPwmCreate(TOPPIN, 5, TOPRANGE);
 
 	pinMode(A_ENABLE_1, OUTPUT);
 	pinMode(A_ENABLE_2, OUTPUT);
@@ -614,30 +617,28 @@ int main()
 			if(detectStarted)
 			{
 				stop();
-                softPwmCreate(BOTTOMPIN, 15, BOTTOMRANGE);//initialize
-                softPwmCreate(TOPPIN, 5, TOPRANGE);
 				softPwmWrite(BOTTOMPIN, fYaw1/(1800/BOTTOMRANGE)+15.0);
 				softPwmWrite(TOPPIN, fNewRoll1/(1800/TOPRANGE)+5.0);
 				// printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
 			}
 			getDis();
-			char str1[4096], para[16];printf("1\n");
-			sprintf(para, "%.2lf",distance);printf("2\n");
-			memset(str1, 0, 4096);printf("3\n");
-			strcat(str1, "GET /api/setDistance?distance=");printf("4\n");
-			strcat(str1, para);printf("5\n");
-			strcat(str1," HTTP/1.1\n");printf("6\n");
-			strcat(str1, "\r\n\r\n");printf("7\n");
-			printf("%s\n",str1);
+			char str1[4096], para[16];
+			sprintf(para, "%.2lf",distance);
+			memset(str1, 0, 4096);
+			strcat(str1, "GET /api/setDistance?distance=");
+			strcat(str1, para);
+			strcat(str1," HTTP/1.1\n");
+			strcat(str1, "\r\n\r\n");
+			// printf("%s\n",str1);
 
 			ret = write(sockfd,str1,strlen(str1));
 			if (ret < 0) 
 			{
-				printf("发送失败！错误代码是%d，错误信息是'%s'\n",errno, strerror(errno));
+				// printf("发送失败！错误代码是%d，错误信息是'%s'\n",errno, strerror(errno));
 				continue;
 			}else
 			{
-				printf("消息发送成功，共发送了%d个字节！\n\n", ret);
+				// printf("消息发送成功，共发送了%d个字节！\n\n", ret);
 			}
 		}
 		if (digitalRead(VOICE) == LOW)
