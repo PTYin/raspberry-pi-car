@@ -51,7 +51,7 @@ exports.server = function() {
 app.listen(config.port);
 car.stdout.on("data", (data) => 
 {
-    console.log(data+"\n");
     distance = data;
+    console.log(distance+"\n");
 });
 console.log("[info] Server started and listening on port " + config.port);
