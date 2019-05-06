@@ -3,7 +3,7 @@ const spawn = require('child_process').spawn;
 const car = spawn('/root/project/raspberry-pi-car/distance');
 car.stdout.on("data", (data) => 
 {
-    distance = data;
+    distance = data.toString();
     // console.log(distance+"\n");
 });
 exports.distance = distance;
