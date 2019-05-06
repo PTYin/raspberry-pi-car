@@ -40,7 +40,12 @@ int main (void)
     double dis;
     setUp();
     unsigned long long times = 0;
-    dis = getDis();
-    printf("%0.2lf",dis);
+    while(1)
+    {
+        dis = getDis();
+        printf("%0.2lf",dis);
+        fflush(stdout);
+        delay(500);
+    }
     return 0;
 }
