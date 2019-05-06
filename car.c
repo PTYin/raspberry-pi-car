@@ -559,6 +559,7 @@ int main()
 				// printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
 			}
 			getDis();
+			printf("%d\n",distance);
 		}
 		if (digitalRead(VOICE) == LOW)
 		{
