@@ -1,4 +1,11 @@
 var distance = 0x7fffffff;
+const spawn = require('child_process').spawn;
+const car = spawn('/root/project/raspberry-pi-car/distance');
+car.stdout.on("data", (data) => 
+{
+    distance = data;
+    // console.log(distance+"\n");
+});
 exports.distance = distance;
 exports.doDistanceCtrl = function(app) {
 
