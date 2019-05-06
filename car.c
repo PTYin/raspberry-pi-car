@@ -300,7 +300,7 @@ double GetRoll(double *pRealVals, double fNorm)
 {
 	double fz = fabs(pRealVals[2]), fy = fabs(pRealVals[1]);
 	double ftan = fy / fz;
-	// printf("**********roll:%lf***********\n", atan(ftan) * fRad2Deg);
+	printf("**********roll:%lf***********\n", atan(ftan) * fRad2Deg);
 	return atan(ftan) * fRad2Deg;
 }
 
@@ -310,14 +310,14 @@ double GetPitch(double *pRealVals, double fNorm)
 	double fz = fabs(pRealVals[2]), fx = fabs(pRealVals[0]);
 //   // printf("**********%lf***********\n", pRealVals[2]);
 	double ftan = fx / fz;
-	// printf("**********pitch:%lf***********\n", atan(ftan) * fRad2Deg);
+	printf("**********pitch:%lf***********\n", atan(ftan) * fRad2Deg);
 	return atan(ftan) * fRad2Deg;
 }
 
 //利用陀螺仪积分
 double GetYaw(double yaw, double rotateSpeed, double dt) 
 {
-	// printf("**********yaw:%lf***********\n", yaw+rotateSpeed*dt);
+	printf("**********yaw:%lf***********\n", yaw+rotateSpeed*dt);
 	return yaw+rotateSpeed*dt;
 }
 
@@ -559,7 +559,7 @@ int main()
 				// printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
 			}
 			getDis();
-			printf("%lf\n",distance);
+			// printf("%lf\n",distance);
 		}
 		if (digitalRead(VOICE) == LOW)
 		{

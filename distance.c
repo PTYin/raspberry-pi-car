@@ -45,7 +45,7 @@ int main (void)
         dis = getDis();
         printf("%0.2lf",dis);
         fflush(stdout);
-        delay(500);
+        delay(100);
     }
     return 0;
 }
