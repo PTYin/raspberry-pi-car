@@ -622,24 +622,24 @@ int main()
 				// printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
 			}
 			getDis();
-			// char str1[4096], para[16];
-			// sprintf(para, "%.2lf",distance);
-			// memset(str1, 0, 4096);
-			// strcat(str1, "GET /api/setDistance?distance=");
-			// strcat(str1, para);
-			// strcat(str1," HTTP/1.1\n");
-			// strcat(str1, "\r\n\r\n");
-			// printf("%s\n",str1);
+			char str1[4096], para[16];printf("1\n");
+			sprintf(para, "%.2lf",distance);printf("2\n");
+			memset(str1, 0, 4096);printf("3\n");
+			strcat(str1, "GET /api/setDistance?distance=");printf("4\n");
+			strcat(str1, para);printf("5\n");
+			strcat(str1," HTTP/1.1\n");printf("6\n");
+			strcat(str1, "\r\n\r\n");printf("7\n");
+			printf("%s\n",str1);
 
-			// ret = write(sockfd,str1,strlen(str1));
-			// if (ret < 0) 
-			// {
-			// 	printf("发送失败！错误代码是%d，错误信息是'%s'\n",errno, strerror(errno));
-			// 	continue;
-			// }else
-			// {
-			// 	printf("消息发送成功，共发送了%d个字节！\n\n", ret);
-			// }
+			ret = write(sockfd,str1,strlen(str1));
+			if (ret < 0) 
+			{
+				printf("发送失败！错误代码是%d，错误信息是'%s'\n",errno, strerror(errno));
+				continue;
+			}else
+			{
+				printf("消息发送成功，共发送了%d个字节！\n\n", ret);
+			}
 		}
 		if (digitalRead(VOICE) == LOW)
 		{
