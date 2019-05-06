@@ -16,3 +16,5 @@ server:
 	@node app.js
 compile:
 	gcc car.c -o car -lwiringPi -lm
+	gcc distance.c -o car -lwiringPi -lm
+	gcc carClient.c -o carClient -lwiringPi -lm
