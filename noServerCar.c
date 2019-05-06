@@ -82,7 +82,7 @@ struct Kalman
 /***************************/
 
 #define TOPRANGE 200
-#define BOTTOMRANGE 164
+#define BOTTOMRANGE 200
 
 const int BOTTOMPIN = 1;
 const int TOPPIN = 0;
@@ -421,9 +421,6 @@ void setup()
 		// printf("IIC初始化失败");
 	}
 
-	softPwmCreate(BOTTOMPIN, 15, BOTTOMRANGE);//initialize
-	softPwmCreate(TOPPIN, 5, TOPRANGE);
-
 	pinMode(A_ENABLE_1, OUTPUT);
 	pinMode(A_ENABLE_2, OUTPUT);
 	pinMode(A_IN_1, OUTPUT);
@@ -617,6 +614,8 @@ int main()
 			if(detectStarted)
 			{
 				stop();
+                softPwmCreate(BOTTOMPIN, 15, BOTTOMRANGE);//initialize
+                softPwmCreate(TOPPIN, 5, TOPRANGE);
 				softPwmWrite(BOTTOMPIN, fYaw1/(1800/BOTTOMRANGE)+15.0);
 				softPwmWrite(TOPPIN, fNewRoll1/(1800/TOPRANGE)+5.0);
 				// printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
