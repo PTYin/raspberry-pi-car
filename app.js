@@ -1,7 +1,8 @@
 var config = require(__dirname + '/config/config.js');
 var express = require('express');
 var swig = require('swig');
-var process = require('child_process');
+const spawn = require('child_process').spawn;
+const car = spawn('/root/project/raspberry-pi-car/car');
 var app = express();
 
 app.use(express.json());
@@ -48,10 +49,8 @@ exports.server = function() {
 }
 
 app.listen(config.port);
-process.exec('/root/project/raspberry-pi-car/car',function (error, stdout, stderr) 
+car.stdout.on("data", (data) => 
 {
-    if (error !== null) {
-      console.log('exec error: ' + error);
-    }
+  console.log(data+"\n");
 });
 console.log("[info] Server started and listening on port " + config.port);
