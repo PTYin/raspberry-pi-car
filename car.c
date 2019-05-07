@@ -407,8 +407,8 @@ void setup()
 	pinMode(LED1, OUTPUT);
 	pinMode(LED2, OUTPUT);
 
-	pinMode (Trig_pin, OUTPUT);
-	pinMode (Echo_pin, INPUT);
+	// pinMode (Trig_pin, OUTPUT);
+	// pinMode (Echo_pin, INPUT);
 
 	pinMode(VOICE, INPUT);
 
@@ -452,7 +452,7 @@ int main()
 		double fNorm1 = sqrt(realVals1[0] * realVals1[0] + realVals1[1] * realVals1[1] + realVals1[2] * realVals1[2]);
 		double fNorm2 = sqrt(realVals2[0] * realVals2[0] + realVals2[1] * realVals2[1] + realVals2[2] * realVals2[2]);
 
-		// printf("NORMAL:%lf  %lf\n",fNorm1, fNorm2);
+		printf("NORMAL:%lf  %lf\n",fNorm1, fNorm2);
 		double fRoll1 = GetRoll(realVals1, fNorm1); //计算Roll角
 		if (realVals1[1] < 0)
 			fRoll1 = 0;
@@ -492,8 +492,8 @@ int main()
 		//更新本次测的时间
 		nLastTime = nCurTime;
 
-		// printf("Roll:");
-		// printf("%lf %lf\tPitch: %lf\tYaw:%lf", fNewRoll1, fNewRoll2, fNewPitch2, fYaw1);
+		printf("Roll:");
+		printf("%lf %lf\tPitch: %lf\tYaw:%lf", fNewRoll1, fNewRoll2, fNewPitch2, fYaw1);
 		
 		if(started)
 		{
@@ -560,9 +560,9 @@ int main()
 				stop();
 				softPwmWrite(BOTTOMPIN, fYaw1/(1800/BOTTOMRANGE)+15.0);
 				softPwmWrite(TOPPIN, fNewRoll1/(1800/TOPRANGE)+5.0);
-				// printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
+				printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
 			}
-			getDis();
+			// getDis();
 			// printf("%lf\n",distance);
 		}
 		if (digitalRead(VOICE) == LOW)
