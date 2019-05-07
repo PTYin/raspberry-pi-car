@@ -244,7 +244,7 @@ void ReadAccGyr(int fd, short *pVals)
 //对大量读数进行统计，校准平均偏移量
 void Calibration(int identifier)
 {
-	memset(calibData+(identifier-1)*7*sizeof(short), 0, sizeof(short)*7);
+	// memset(calibData+(identifier-1)*7*sizeof(short), 0, sizeof(short)*7);
 	double valSums[7] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 	//先求和
 	for (int i = 0; i < nCalibTimes; ++i) 
@@ -560,7 +560,7 @@ int main()
 				stop();
 				softPwmWrite(BOTTOMPIN, fYaw1/(1800/BOTTOMRANGE)+15.0);
 				softPwmWrite(TOPPIN, fNewRoll1/(1800/TOPRANGE)+5.0);
-				printf("bottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
+				printf("\nbottom:%lf top:%lf\n", fYaw1/(1800/BOTTOMRANGE)+15.0, fNewRoll1/(1800/TOPRANGE)+5.0);
 			}
 			// getDis();
 			// printf("%lf\n",distance);
