@@ -247,6 +247,7 @@ void Calibration(int identifier)
 	// memset(calibData+(identifier-1)*7*sizeof(short), 0, sizeof(short)*7);
 	double valSums[7] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 	//先求和
+	delay(500);
 	for (int i = 0; i < nCalibTimes; ++i) 
 	{
 		short mpuVals[nValCnt];
