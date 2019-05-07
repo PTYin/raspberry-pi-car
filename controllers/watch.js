@@ -28,7 +28,7 @@ exports.watchPhotosCtrl = function(app) {
             }
             var photos = [], photo;
             async.forEachSeries(data, function(item, callback) {
-                fs.stat('publish/photo/' + item, function (err, data) {
+                fs.stat(picturePath + item, function (err, data) {
                     if(err) {
                         console.log('[error] File %s read stat error', item);
                     }
