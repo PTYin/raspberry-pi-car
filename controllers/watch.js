@@ -3,6 +3,7 @@
  */
 var fs = require('fs');
 var async = require('async');
+var picturePath = require('../config/config.js').picturePath;
 
 exports.watchPhotosCtrl = function(app) {
     app.get('/api/photos', function(req, res) {
@@ -16,7 +17,7 @@ exports.watchPhotosCtrl = function(app) {
             res.send(200, message);
             return false;
         }
-        fs.readdir('publish/photo', function (err, data) {
+        fs.readdir(picturePath, function (err, data) {
             if (err) {
                 message = {
                     'stat': 'fail',
