@@ -244,7 +244,7 @@ void ReadAccGyr(int fd, short *pVals)
 //对大量读数进行统计，校准平均偏移量
 void Calibration(int identifier)
 {
-	memset(calibData, 0, sizeof(calibData));
+	memset(calibData+(identifier-1)*7*sizeof(short), 0, sizeof(short)*7);
 	double valSums[7] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 	//先求和
 	for (int i = 0; i < nCalibTimes; ++i) 
