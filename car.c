@@ -540,9 +540,9 @@ int main()
 				// }
 				// else
 				// {
-				fd1 = wiringPiI2CSetup(MPU1);
-				fd2 = wiringPiI2CSetup(MPU2);
-				printf("######fd1:%d fd2:%d######\n",fd1,fd2);
+				// fd1 = wiringPiI2CSetup(MPU1);
+				// fd2 = wiringPiI2CSetup(MPU2);
+				// printf("######fd1:%d fd2:%d######\n",fd1,fd2);
 				stop();
 				detectStarted ^= 1;
 				softPwmWrite(BOTTOMPIN, 15.0);
@@ -569,9 +569,9 @@ int main()
 		if (digitalRead(VOICE) == LOW)
 		{
 			// printf("sound!\n");
-			fd1 = wiringPiI2CSetup(MPU1);
-			fd2 = wiringPiI2CSetup(MPU2);
-			printf("######fd1:%d fd2:%d######\n",fd1,fd2);
+			// fd1 = wiringPiI2CSetup(MPU1);
+			// fd2 = wiringPiI2CSetup(MPU2);
+			// printf("######fd1:%d fd2:%d######\n",fd1,fd2);
 			started^=1;
 			softPwmWrite(BOTTOMPIN, 15.0);
 			softPwmWrite(TOPPIN, 5.0);
