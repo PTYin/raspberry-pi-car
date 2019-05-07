@@ -578,7 +578,7 @@ int main()
 			stop();
 			digitalWrite(LED1, HIGH);
 			digitalWrite(LED2, HIGH);
-			Calibration(2);
+			detectStarted?Calibration(1):Calibration(2);
 			digitalWrite(LED1, LOW);
 			digitalWrite(LED2, LOW);
 		}
