@@ -1,18 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include <time.h>
 #include <string.h>
 #include <wiringPi.h>
 #include <wiringPiI2C.h>
 #include<softPwm.h>
 #include<math.h>
 #include<sys/time.h>
-#include <sys/socket.h>
-#include <sys/wait.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <errno.h>
-#include <unistd.h>
 
 #define A_ENABLE_1 26
 #define A_ENABLE_2 27
