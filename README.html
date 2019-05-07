@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<h1 id="raspberry-pi-car">raspberry-pi-car</h1>
+<p>Github链接<a href="https://github.com/PTYin/raspberry-pi-car">raspberry-pi-car</a></p>
+<h2 id="installation">Installation</h2>
+<pre><code>make install
+make server
+</code></pre>
+<h2 id="compilation">Compilation</h2>
+<pre><code>make compile # if you just want to compile C program
+</code></pre>
+<h2 id="usage">Usage</h2>
+<pre><code>node app.js
+./car # or ./carClient
+</code></pre>
+<h2 id="structure">Structure</h2>
+<ul>
+<li>car.c (小车的控制程序源代码)</li>
+<li>distance.c (超声波测距的源代码,作为node服务器进程的子进程)</li>
+<li>carClient.c(socket通信版本的小车控制源码,内包含超声波测距,但会影响服务器响应速度)</li>
+<li>.gitignore(去除了一些文件及文件夹)</li>
+<li>Makefile
+<ul>
+<li>make install(apt安装依赖，npm安装依赖，编译源代码)</li>
+<li>make compile(仅编译C代码)</li>
+<li>make server(启动服务器)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>(以下fork自Github项目Remote-Camera，并做了部分修改,故以下只讲本项目修改的部分)</p>
+<ul>
+<li>app.js(node服务器入口)</li>
+<li>views
+<ul>
+<li>index.html(去除了商标，添加了手写的JS ajax代码,不断向服务器请求距离)</li>
+</ul>
+</li>
+<li>controllers
+<ul>
+<li>distance.js(响应关于距离探测数据的处理和客户端/服务器端距离的交互)</li>
+</ul>
+</li>
+<li>config
+<ul>
+<li>config.js(修改了一些配置并添加了配置)</li>
+</ul>
+</li>
+</ul>
+<h2 id="hardware">Hardware</h2>
+<ul>
+<li>
+<p>加速度计在项目中应用</p>
+<p><img src="image/MPU-6050.jpg" alt="MPU 6050" title="MPU 6050"></p>
+<ul>
+<li>加速度计静止时只受重力一个力，而重力永远是竖直向下的</li>
+<li>通过测定x/y/z轴所受的加速度即获得了重力在x/y/z轴的分量</li>
+<li>设重力加速度在yz平面上与z轴夹角为α，则tanα=Fy/Fz。这个α就是要求的roll角，即用math库中反正弦函数得到，同理可得到pitch角，tanβ=Fx/Fz</li>
+<li>但是用此方法无法得到yaw角，因为以z轴为转轴转动重力分量不会随转动角度变化而变化。</li>
+<li>项目中控制小车前进后退和控制舵机抬头低头是使用加速度计得到角度</li>
+</ul>
+</li>
+<li>
+<p>陀螺仪应用</p>
+<ul>
+<li>陀螺仪中有一微小陀螺，永远保持水平</li>
+<li>陀螺仪可以读出roll，pitch，yaw三角角速度</li>
+<li>通过粗略对yaw角速度积分的方式来求出yaw角</li>
+<li>项目中控制舵机转动是使用陀螺仪积分得到角度</li>
+</ul>
+</li>
+<li>
+<p>数据读取及处理</p>
+<ul>
+<li>MPU6050模块通过I2C通信，首先需要向其各个寄存器写入数据将其初始化</li>
+<li>其次通过读取MPU6050寄存器得到加速度计、陀螺仪各轴数据</li>
+<li>加速度计读数会有噪音，为了让角度曲线变得更平滑需要降噪算法</li>
+<li>本项目采用卡尔曼滤波算法，网上并没有现有c语言代码，代码中kalman滤波算法是从<a href="https://github.com/TKJElectronics/KalmanFilter">github C++面向对象项目KalmanFilter</a>改写成C语言函数</li>
+</ul>
+</li>
+</ul>
+<h3 id="%E8%B6%85%E5%A3%B0%E6%B3%A2%E4%BC%A0%E6%84%9F%E5%99%A8">超声波传感器</h3>
+<p><img src="image/ultrasonic.jpg" alt="超声波"></p>
+<ul>
+<li>HC-SR04具有两个探头分别是发射探头和接受探头</li>
+<li>通过&lt;sys/time.h&gt;库中gettimeofday函数来获得时间，用音速乘以时间获得粗略的距离</li>
+</ul>
+<h3 id="%E8%88%B5%E6%9C%BA%E4%BA%91%E5%8F%B0">舵机云台</h3>
+<p><img src="image/pwm.gif" alt="pwm" title="pwm"></p>
+<ul>
+<li>项目中有两舵机,仰角舵机和平移舵机</li>
+<li>通过PWM脉冲时长来控制舵机的转角 0.5ms是0度 1.5ms是90度 2.5ms是180度</li>
+<li>通过陀螺仪和加速度计获得的角映射到脉冲时长</li>
+</ul>
+<pre class="hljs"><code><div>softPwmWrite(BOTTOMPIN, fYaw1/(<span class="hljs-number">1800</span>/BOTTOMRANGE)+<span class="hljs-number">15.0</span>);
+softPwmWrite(TOPPIN, fNewRoll1/(<span class="hljs-number">1800</span>/TOPRANGE)+<span class="hljs-number">5.0</span>);
+</div></code></pre>
+<h3 id="l298n%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%A8%A1%E5%9D%97">L298N电机控制模块</h3>
+<p><img src="image/L298N.jpg" alt="L298N"></p>
+<ul>
+<li>通过GPIO依据上表输出高低电平即可控制电机正转反转</li>
+<li>前进同为正转，后退同为反转，左右旋转则两电机转动相反</li>
+</ul>
+<h3 id="%E5%85%B6%E5%AE%83%E9%83%A8%E4%BB%B6">其它部件</h3>
+<ul>
+<li>声音传感器
+<ul>
+<li>声音传感器接收到声音会输出高电平</li>
+</ul>
+</li>
+<li>发光二极管
+<ul>
+<li>用于指示灯，注意串联电阻防止烧坏二极管和甚至电源</li>
+</ul>
+</li>
+<li>usb摄像头
+<ul>
+<li>免驱动且利用工具fswebcam即可实现拍照功能</li>
+</ul>
+</li>
+</ul>
+<h2 id="server">Server</h2>
+<ul>
+<li>开机自启hotapd热点服务，ssid为pi(利用github项目<a href="https://github.com/oblique/create_ap">oblique/create_ap</a>)</li>
+<li>nodejs服务器(利用github项目<a href="https://github.com/pizn/Remote-Camera">pizn/Remote-Camera</a>)
+<ul>
+<li><strong>拍照原理</strong>
+<ul>
+<li>为node服务器调用shell子进程，运行命令fswebcam来拍摄照片并储存</li>
+</ul>
+</li>
+<li><strong>查看照片原理</strong>
+<ul>
+<li>利用fs.readdir()方法获得photo目录下所有照片，然后再去遍历</li>
+</ul>
+</li>
+<li><strong>实时距离显示原理</strong>
+<ul>
+<li>子进程调用本项目第三个程序distance</li>
+<li>子进程通过fflush(stdout)不断地输出距离并且冲洗标准输出流内容</li>
+<li>node父进程通过监听stdout标准输出流获得距离</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="%E6%A8%A1%E5%9D%97">模块</h3>
+<ul>
+<li>登陆模块</li>
+<li>拍照模块</li>
+<li>照片查看模块</li>
+<li>距离模块</li>
+</ul>
+<h2 id="socket%E9%80%9A%E4%BF%A1">socket通信</h2>
+<ul>
+<li>本项目有两个版本
+<ul>
+<li>一个是通过socket通信进行c语言和nodejs服务器通信的，不依赖于服务器的carClient程序，方便调试</li>
+<li>另一个是最终更稳定的版本，也就是最终版采用的方式，通过父子进程通信获得超声波距离</li>
+</ul>
+</li>
+</ul>
+<h2 id="%E6%8E%A7%E5%88%B6%E6%96%B9%E6%B3%95">控制方法</h2>
+<ul>
+<li>声音传感器探测声音，向左手声音传感器吹气来开启或关闭小车响应</li>
+<li>右手前后左右倾斜控制前后左右</li>
+<li>右手震荡行走模式和探测模式互换</li>
+<li>左手转动或前后倾斜控制舵机云台转动（云台上是摄像头和超声波测距模块）</li>
+</ul>
+<h2 id="material">Material</h2>
+<ul>
+<li>树莓派 3b+</li>
+<li>小车躯干 两个直流电机 两个轮子 一个万向轮</li>
+<li>usb摄像头</li>
+<li>声音传感器</li>
+<li>两个电阻</li>
+<li>两个发光二极管</li>
+<li>L298N电机驱动模块</li>
+<li>HC-SR04超声波测距模块</li>
+<li>公对公母对母公对母杜邦线若干</li>
+<li>SYB-170小面包板两个</li>
+<li>大面包板</li>
+<li>MPU6050六轴陀螺仪加速度计两个</li>
+<li>sg90舵机两个</li>
+<li>小充电宝</li>
+</ul>
+<p><img src="image/jd.jpg" alt="商品" title="商品"><img src="image/jd2.jpg" alt="商品" title="商品"></p>
+
+</body>
+</html>

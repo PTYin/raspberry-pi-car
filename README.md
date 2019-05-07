@@ -16,24 +16,27 @@ Github链接[raspberry-pi-car](https://github.com/PTYin/raspberry-pi-car)
     node app.js
     ./car # or ./carClient
 
-## Material
+## Structure
 
-- 树莓派 3b+
-- 小车躯干 两个直流电机 两个轮子 一个万向轮
-- usb摄像头
-- 声音传感器
-- 两个电阻
-- 两个发光二极管
-- L298N电机驱动模块
-- HC-SR04超声波测距模块
-- 公对公母对母公对母杜邦线若干
-- SYB-170小面包板两个
-- 大面包板
-- MPU6050六轴陀螺仪加速度计两个
-- sg90舵机两个
-- 小充电宝
+- car.c (小车的控制程序源代码)
+- distance.c (超声波测距的源代码,作为node服务器进程的子进程)
+- carClient.c(socket通信版本的小车控制源码,内包含超声波测距,但会影响服务器响应速度)
+- .gitignore(去除了一些文件及文件夹)
+- Makefile
+  - make install(apt安装依赖，npm安装依赖，编译源代码)
+  - make compile(仅编译C代码)
+  - make server(启动服务器)
 
-![商品](image/jd.jpg "商品")![商品](image/jd2.jpg "商品")
+---
+(以下fork自Github项目Remote-Camera，并做了部分修改,故以下只讲本项目修改的部分)
+
+- app.js(node服务器入口)
+- views
+  - index.html(去除了商标，添加了手写的JS ajax代码,不断向服务器请求距离)
+- controllers
+  - distance.js(响应关于距离探测数据的处理和客户端/服务器端距离的交互)
+- config
+  - config.js(修改了一些配置并添加了配置)
 
 ## Hardware
 
@@ -125,3 +128,22 @@ softPwmWrite(TOPPIN, fNewRoll1/(1800/TOPRANGE)+5.0);
 - 右手前后左右倾斜控制前后左右
 - 右手震荡行走模式和探测模式互换
 - 左手转动或前后倾斜控制舵机云台转动（云台上是摄像头和超声波测距模块）
+
+## Material
+
+- 树莓派 3b+
+- 小车躯干 两个直流电机 两个轮子 一个万向轮
+- usb摄像头
+- 声音传感器
+- 两个电阻
+- 两个发光二极管
+- L298N电机驱动模块
+- HC-SR04超声波测距模块
+- 公对公母对母公对母杜邦线若干
+- SYB-170小面包板两个
+- 大面包板
+- MPU6050六轴陀螺仪加速度计两个
+- sg90舵机两个
+- 小充电宝
+
+![商品](image/jd.jpg "商品")![商品](image/jd2.jpg "商品")
