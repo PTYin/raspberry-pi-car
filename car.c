@@ -550,7 +550,7 @@ int main()
 				fYaw1 = 0;
 				digitalWrite(LED1, HIGH);
 				digitalWrite(LED2, HIGH);
-				Calibration(1);
+				detectStarted?Calibration(1):Calibration(2);
 				digitalWrite(LED1, LOW);
 				digitalWrite(LED2, LOW);
 				// }
