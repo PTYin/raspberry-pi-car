@@ -365,6 +365,7 @@ void setup()
 	wiringPiSetup();
 	fd1 = wiringPiI2CSetup(MPU1);
 	fd2 = wiringPiI2CSetup(MPU2);
+	printf("######fd1:%d fd2:%d######\n",fd1,fd2);
 	//WriteMPUReg(0x6B, 0);
 	if (fd1 >= 0 && fd2 >= 0) 
 	{ // fd 为负数，说明IIC连接失败
@@ -540,6 +541,7 @@ int main()
 				// {
 				fd1 = wiringPiI2CSetup(MPU1);
 				fd2 = wiringPiI2CSetup(MPU2);
+				printf("######fd1:%d fd2:%d######\n",fd1,fd2);
 				stop();
 				detectStarted ^= 1;
 				softPwmWrite(BOTTOMPIN, 15.0);
@@ -568,6 +570,7 @@ int main()
 			// printf("sound!\n");
 			fd1 = wiringPiI2CSetup(MPU1);
 			fd2 = wiringPiI2CSetup(MPU2);
+			printf("######fd1:%d fd2:%d######\n",fd1,fd2);
 			started^=1;
 			softPwmWrite(BOTTOMPIN, 15.0);
 			softPwmWrite(TOPPIN, 5.0);
