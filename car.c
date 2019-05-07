@@ -540,11 +540,6 @@ int main()
 				// else
 				// {
 				fd1 = wiringPiI2CSetup(MPU1);
-				wiringPiI2CWriteReg8(fd1,PWR_MGMT_1,0x00); // 开启温度检测 关闭休眠
-				wiringPiI2CWriteReg8(fd1,SMPLRT_DIV, 0x07);
-				wiringPiI2CWriteReg8(fd1,CONFIG, 0x06);
-				wiringPiI2CWriteReg8(fd1,GYRO_CONFIG, 0x00);
-				wiringPiI2CWriteReg8(fd1,ACCEL_CONFIG, 0x01);
 				fd2 = wiringPiI2CSetup(MPU2);
 				printf("######fd1:%d fd2:%d######\n",fd1,fd2);
 				stop();
