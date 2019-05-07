@@ -97,15 +97,31 @@ softPwmWrite(TOPPIN, fNewRoll1/(1800/TOPRANGE)+5.0);
 
 - 开机自启hotapd热点服务，ssid为pi(利用github项目[oblique/create_ap](https://github.com/oblique/create_ap))
 - nodejs服务器(利用github项目[pizn/Remote-Camera](https://github.com/pizn/Remote-Camera))
-  - 拍照原理为node服务器调用shell子进程，运行命令fswebcam来拍摄照片并储存
-  - 查看照片原理利用fs.readdir()方法获得photo目录下所有照片，然后再去遍历
-  - 实时距离显示原理
+  - **拍照原理**
+    - 为node服务器调用shell子进程，运行命令fswebcam来拍摄照片并储存
+  - **查看照片原理**
+    - 利用fs.readdir()方法获得photo目录下所有照片，然后再去遍历
+  - **实时距离显示原理**
     - 子进程调用本项目第三个程序distance
     - 子进程通过fflush(stdout)不断地输出距离并且冲洗标准输出流内容
     - node父进程通过监听stdout标准输出流获得距离
 
-## carClient
+### 模块
+
+- 登陆模块
+- 拍照模块
+- 照片查看模块
+- 距离模块
+
+## socket通信
 
 - 本项目有两个版本
-  - 一个是通过socket通信进行c语言和nodejs服务器通信的，不依赖于服务器的carClient程序
-  - 另一个是最终更稳定的版本，通过父子进程通信获得超声波距离
+  - 一个是通过socket通信进行c语言和nodejs服务器通信的，不依赖于服务器的carClient程序，方便调试
+  - 另一个是最终更稳定的版本，也就是最终版采用的方式，通过父子进程通信获得超声波距离
+
+## 控制方法
+
+- 声音传感器探测声音，向左手声音传感器吹气来开启或关闭小车响应
+- 右手前后左右倾斜控制前后左右
+- 右手震荡行走模式和探测模式互换
+- 左手转动或前后倾斜控制舵机云台转动（云台上是摄像头和超声波测距模块）
